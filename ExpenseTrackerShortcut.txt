@@ -1,0 +1,123 @@
+iOS Shortcut Configuration for Expense Tracker
+==============================================
+
+SETUP INSTRUCTIONS:
+-------------------
+
+Since iOS Shortcuts cannot be directly created as files, follow these steps to create the automation manually:
+
+STEP 1: Create the Shortcut
+----------------------------
+
+1. Open the Shortcuts app on your iPhone
+2. Tap the "+" button to create a new shortcut
+3. Name it "Track Expense SMS"
+
+4. Add these actions in order:
+
+   ACTION 1: Get Text from Input
+   - This receives the SMS content
+
+   ACTION 2: Set Variable
+   - Variable name: "SMSText"
+   - Value: Select "Shortcut Input"
+
+   ACTION 3: Get Contents of URL
+   - URL: https://expense-tracker.YOUR-SUBDOMAIN.workers.dev
+   - Method: POST
+   - Request Body: JSON
+   - Add fields:
+     * Key: "sms" → Value: Variable "SMSText"
+
+   - Headers:
+     * Content-Type: application/json
+
+   ACTION 4: Show Notification (Optional)
+   - Title: "Expense Tracked"
+   - Body: "Amount: [Get Dictionary Value 'amount' from Contents of URL]"
+
+
+STEP 2: Create the Automation
+------------------------------
+
+1. Open the Shortcuts app
+2. Go to the "Automation" tab at the bottom
+3. Tap "+" to create a new automation
+4. Choose "Message"
+
+5. Configure the trigger:
+   - Contains: ANY of these keywords
+     * spent
+     * debited
+     * txn
+     * Rs
+     * INR
+     * ₹
+
+   - Sender: Choose your SMS senders (or select "Any")
+   - Message contains: (leave empty or add bank names like "HDFC", "Axis", "AMEX")
+
+6. Choose "Run Immediately" (optional, or "Ask Before Running")
+
+7. Add Actions:
+   - Search for "Run Shortcut"
+   - Select your "Track Expense SMS" shortcut
+   - Input: Set to "Message"
+
+8. Toggle "Ask Before Running" OFF (if you want automatic tracking)
+
+9. Tap "Done" to save
+
+
+ALTERNATIVE: Manual iCloud Shortcut Link
+-----------------------------------------
+
+After deploying your worker, you can also:
+
+1. Visit: https://www.icloud.com/shortcuts/create
+2. Build the shortcut using the web interface
+3. Share it and get an iCloud link
+
+Or use this template URL format (you'll need to customize):
+icloud.com/shortcuts/[shortcut-id]
+
+
+TESTING THE SHORTCUT
+--------------------
+
+To test manually:
+1. Open the "Track Expense SMS" shortcut
+2. Tap the play button
+3. Paste a sample SMS:
+   "Spent Rs.509.71 On HDFC Bank Card 0962 At ZOMATO new On 2025-11-15:19:52:25"
+4. Check your Google Sheet for the new entry
+
+
+IMPORTANT NOTES:
+----------------
+
+1. Replace YOUR-SUBDOMAIN with your actual Cloudflare Worker subdomain
+2. The automation will only trigger for NEW messages received after setup
+3. You can modify the trigger keywords to be more specific to your bank
+4. Enable notifications to see when expenses are tracked
+5. Make sure your iPhone has internet connection for the API call
+
+
+PRIVACY & SECURITY:
+-------------------
+
+✓ SMS data is sent directly from your iPhone to your Cloudflare Worker
+✓ No third-party apps read your messages
+✓ Only messages matching your keywords trigger the automation
+✓ Data is stored only in your Google Sheet (which you control)
+
+
+TROUBLESHOOTING:
+----------------
+
+If the shortcut doesn't work:
+1. Check the Worker URL is correct (test with curl first)
+2. Verify the shortcut has internet access permission
+3. Check the notification to see any error messages
+4. Test manually first before setting up automation
+5. Ensure your Worker is deployed and secrets are configured

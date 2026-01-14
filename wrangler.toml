@@ -1,0 +1,17 @@
+name = "expense-tracker"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# Account ID - Get this from your Cloudflare dashboard
+# account_id = "your-account-id-here"
+
+# Environment variables (secrets)
+# Set these using: wrangler secret put VARIABLE_NAME
+# Required secrets:
+#   - GOOGLE_SERVICE_ACCOUNT_EMAIL
+#   - GOOGLE_PRIVATE_KEY
+#   - GOOGLE_SPREADSHEET_ID
+
+[env.production]
+name = "expense-tracker"
+vars = { ENVIRONMENT = "production" }
