@@ -1,6 +1,6 @@
-<div align="center">
+<div>
 
-# 💸 expense-tracker
+# expense-tracker
 
 **Track your monthly spending automatically by scraping expense emails with the Gmail API — without handing your inbox to a third-party app.**
 
