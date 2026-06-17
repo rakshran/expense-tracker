@@ -2,11 +2,12 @@
 
 # expense-tracker
 
-**Track your monthly spending automatically by scraping expense emails with the Gmail API — without handing your inbox to a third-party app.**
-
 [![Python 3.8+](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Gmail API](https://img.shields.io/badge/Gmail%20API-readonly-red.svg)](https://developers.google.com/gmail/api)
+
+Track your monthly spending automatically by scraping expense emails with the Gmail API — without handing your inbox to a third-party app.
+
 
 </div>
 
